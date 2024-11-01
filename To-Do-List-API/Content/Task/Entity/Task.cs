@@ -17,10 +17,13 @@ namespace To_Do_List_API.Content.Task.Entity
         public string Description { get; set; }
         [Required]
         [Display(Name = "Status da tarefa")]
-        public StatusEnum Status { get; set; }
+        public StatusEnum Status { get; set; } = StatusEnum.Ativa;
         [Required]
-        [Display(Name = "Tarefa criada em")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Display(Name = "Data de criação da tarefa")]
+        public DateOnly CreatedAt { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
+        [Required]
+        public int UserId { get; set; }
 
     }
 }

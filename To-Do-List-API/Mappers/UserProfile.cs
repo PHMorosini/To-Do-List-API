@@ -9,6 +9,7 @@ namespace To_Do_List_API.Mappers
         public UserProfile()
         {
             CreateMap<UserDto,User>();
+            CreateMap<User, UserDto>();
         }
 
     }

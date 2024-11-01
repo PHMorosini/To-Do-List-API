@@ -35,7 +35,7 @@ namespace To_Do_List_API.Content.User.Services
 
         public async Task<UserDto> GetUserByIdAsync(int id)
         {
-            var user = _userRepository.GetUserByIdAsync(id);
+            var user = await _userRepository.GetUserByIdAsync(id);
             if (user == null) throw new Exception("Usuario não encontrado");
             return _mapper.Map<UserDto>(user);
 

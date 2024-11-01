@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using To_Do_List_API.Content.Task.DTO;
 using To_Do_List_API.Content.Task.Interfaces;
 using To_Do_List_API.Context;
@@ -31,10 +32,10 @@ namespace To_Do_List_API.Content.Task.Services
             return _mapper.Map<IEnumerable<TaskDto>>(tasks);
         }
 
-        public async System.Threading.Tasks.Task AddTaskAsync(TaskDto taskDto)
+        public async System.Threading.Tasks.Task AddTaskAsync(TaskCreateDto taskDto)
         {
             var task = _mapper.Map<Entity.Task>(taskDto);
-            task.CreatedAt = DateTime.Now; // Define a data de criação
+            task.CreatedAt = DateOnly.FromDateTime(DateTime.Now); // Define a data de criação
 
             await _taskRepository.AddAsync(task);
         }
@@ -54,6 +55,11 @@ namespace To_Do_List_API.Content.Task.Services
         public async System.Threading.Tasks.Task DeleteTaskAsync(int id)
         {
             await _taskRepository.DeleteAsync(id);
+        }
+        public async System.Threading.Tasks.Task<IEnumerable<TaskDto>> GetAllTasksByUser(int userId)
+        {
+            var tasks = _taskRepository.GetAllTasksByUser(userId);
+           return _mapper.Map<IEnumerable<TaskDto>>(tasks);
         }
 
 

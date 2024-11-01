@@ -31,12 +31,12 @@ namespace To_Do_List_API.Content.User.Repository
 
         public async Task<IEnumerable<Entity.User>> GetAllUsersAsync()
         {
-            return await _context.Set<Entity.User>().ToListAsync();
+            return await _context.Set<Entity.User>().Include(c => c.Tasks).ToListAsync();
         }
 
         public async Task<Entity.User> GetUserByIdAsync(int id)
         {
-            return await _context.Set<Entity.User>().FindAsync(id);
+            return await _context.Set<Entity.User>().Include(c => c.Tasks).FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(Entity.User user)

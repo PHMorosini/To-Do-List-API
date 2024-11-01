@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using To_Do_List_API.Context;
@@ -11,9 +12,11 @@ using To_Do_List_API.Context;
 namespace To_Do_List_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031221717_AddUserOnTask")]
+    partial class AddUserOnTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace To_Do_List_API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("CreatedAt")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -80,16 +83,13 @@ namespace To_Do_List_API.Migrations
 
             modelBuilder.Entity("To_Do_List_API.Content.Task.Entity.Task", b =>
                 {
-                    b.HasOne("To_Do_List_API.Content.User.Entity.User", null)
-                        .WithMany("Tasks")
+                    b.HasOne("To_Do_List_API.Content.User.Entity.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("To_Do_List_API.Content.User.Entity.User", b =>
-                {
-                    b.Navigation("Tasks");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

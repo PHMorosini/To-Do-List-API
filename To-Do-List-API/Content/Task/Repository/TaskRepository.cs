@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using To_Do_List_API.Content.Task.Interfaces;
+using To_Do_List_API.Context;
 
 
 namespace To_Do_List_API.Content.Task.Repository
 {
     public class TaskRepository : ITaskRepository
     {
-        private readonly DbContext _context;
+        private readonly AppDbContext _context;
 
-        public TaskRepository(DbContext context)
+        public TaskRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -43,6 +44,11 @@ namespace To_Do_List_API.Content.Task.Repository
                 _context.Set<Entity.Task>().Remove(task);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async System.Threading.Tasks.Task<IEnumerable<Entity.Task>> GetAllTasksByUser(int userId)
+        {
+             return await _context.Tasks.Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }

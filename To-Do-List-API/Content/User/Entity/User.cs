@@ -14,5 +14,7 @@ namespace To_Do_List_API.Content.User.Entity
         [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail em formato inválido.")]
         public string Email { get; set; }
+
+        public ICollection<Task.Entity.Task> Tasks { get; set; }
     }
 }
