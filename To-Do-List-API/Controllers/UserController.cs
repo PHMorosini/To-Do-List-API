@@ -10,7 +10,7 @@ namespace To_Do_List_API.Controllers;
 /// Controlador responsável pelas operações de gerenciamento de usuarios.
 /// </summary>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
@@ -77,7 +77,7 @@ public class UserController : Controller
     /// <summary>
     /// Deleta um usuario
     /// </summary>
-    /// <param name="userId">Dados do usuario a ser deletado.</param>
+    /// <param name="Id">Dados do usuario a ser deletado.</param>
     /// <returns>O recurso recém-atualizado.</returns>
     /// <response code="204">Se o usuario for deletado com sucesso.</response>
     /// <response code="400">Se o id do usuario for inválido.</response>
@@ -96,7 +96,7 @@ public class UserController : Controller
     /// Obtém todos os usuarios.
     /// </summary>
     /// <response code="200">Retorna todos os usuarios solicitado.</response>
-    /// <response code="404">Se o usuario não for encontrado.</response>
+    /// <response code="404">Se nenhum usuario for encontrado.</response>
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -108,5 +108,7 @@ public class UserController : Controller
 
         return Ok(users);
     }
+
+ 
 
 }

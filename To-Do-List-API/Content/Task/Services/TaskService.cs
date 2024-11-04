@@ -56,9 +56,10 @@ namespace To_Do_List_API.Content.Task.Services
         {
             await _taskRepository.DeleteAsync(id);
         }
+
         public async System.Threading.Tasks.Task<IEnumerable<TaskDto>> GetAllTasksByUser(int userId)
         {
-            var tasks = _taskRepository.GetAllTasksByUser(userId);
+            var tasks = await _taskRepository.GetAllTasksByUser(userId);
            return _mapper.Map<IEnumerable<TaskDto>>(tasks);
         }
 
