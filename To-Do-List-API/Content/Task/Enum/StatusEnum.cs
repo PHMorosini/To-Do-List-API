@@ -2,7 +2,7 @@
 {
     public enum StatusEnum 
     {
-        Criada = 1,
+        Ativa = 1,
         Pendente = 2,
         Finalizada = 3,
             
